@@ -543,14 +543,14 @@ static const yytype_int8 yyrhs[] =
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
-static const yytype_uint16 yyrline[] =
+static const yytype_uint8 yyrline[] =
 {
        0,    91,    91,   101,   111,   115,   116,   120,   121,   122,
      123,   124,   125,   126,   130,   134,   142,   143,   144,   145,
-     146,   150,   151,   152,   153,   157,   163,   164,   165,   166,
-     167,   168,   169,   170,   171,   172,   173,   174,   175,   176,
-     177,   178,   191,   200,   209,   210,   211,   215,   222,   234,
-     244,   256,   257,   258,   259
+     146,   150,   151,   152,   153,   157,   158,   159,   160,   161,
+     162,   163,   164,   165,   166,   167,   168,   169,   170,   171,
+     172,   173,   186,   195,   204,   205,   206,   210,   217,   229,
+     239,   251,   252,   253,   254
 };
 #endif
 
@@ -1748,123 +1748,118 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 157 "parser.y"
-    { 
-        char *content = (yyvsp[(1) - (1)].str);
-        (yyval.str) = concat2("\"", content);
-        (yyval.str) = concat2((yyval.str), "\"");
-        free((yyvsp[(1) - (1)].str));
-    ;}
+    { (yyval.str) = (yyvsp[(1) - (1)].str); ;}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 163 "parser.y"
+#line 158 "parser.y"
     { (yyval.str) = (yyvsp[(1) - (1)].str); ;}
     break;
 
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 164 "parser.y"
+#line 159 "parser.y"
     { (yyval.str) = (yyvsp[(1) - (1)].str); ;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 165 "parser.y"
+#line 160 "parser.y"
     { (yyval.str) = (yyvsp[(1) - (1)].str); ;}
     break;
 
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 166 "parser.y"
+#line 161 "parser.y"
     { (yyval.str) = (yyvsp[(1) - (1)].str); ;}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 167 "parser.y"
+#line 162 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " + ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 168 "parser.y"
+#line 163 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " - ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 169 "parser.y"
+#line 164 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " * ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 170 "parser.y"
+#line 165 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " / ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 171 "parser.y"
+#line 166 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " < ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 172 "parser.y"
+#line 167 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " > ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 173 "parser.y"
+#line 168 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " <= ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 174 "parser.y"
+#line 169 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " >= ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 175 "parser.y"
+#line 170 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " == ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 176 "parser.y"
+#line 171 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " != ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 177 "parser.y"
+#line 172 "parser.y"
     { (yyval.str) = concat3("(", (yyvsp[(2) - (3)].str), ")"); free((yyvsp[(2) - (3)].str)); ;}
     break;
 
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 179 "parser.y"
+#line 174 "parser.y"
     {
         if (strcmp((yyvsp[(3) - (6)].str), "add") == 0) {
             (yyval.str) = concat3((yyvsp[(1) - (6)].str), ".append(", (yyvsp[(5) - (6)].str));
@@ -1882,7 +1877,7 @@ yyreduce:
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 192 "parser.y"
+#line 187 "parser.y"
     {
         if (strcmp((yyvsp[(3) - (3)].str), "length") == 0) {
             (yyval.str) = concat3("len(", (yyvsp[(1) - (3)].str), ")");
@@ -1896,7 +1891,7 @@ yyreduce:
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 201 "parser.y"
+#line 196 "parser.y"
     {
         (yyval.str) = concat3((yyvsp[(1) - (4)].str), "[", (yyvsp[(3) - (4)].str));
         (yyval.str) = concat2((yyval.str), "]");
@@ -1907,28 +1902,28 @@ yyreduce:
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 209 "parser.y"
+#line 204 "parser.y"
     { (yyval.str) = sdup(""); ;}
     break;
 
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 210 "parser.y"
+#line 205 "parser.y"
     { (yyval.str) = (yyvsp[(1) - (1)].str); ;}
     break;
 
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 211 "parser.y"
+#line 206 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), ", ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 216 "parser.y"
+#line 211 "parser.y"
     {
         char *hdr = concat3("if ", (yyvsp[(3) - (5)].str), ":");
         char *b = add_indent((yyvsp[(5) - (5)].str));
@@ -1940,7 +1935,7 @@ yyreduce:
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 223 "parser.y"
+#line 218 "parser.y"
     {
         char *hdr = concat3("if ", (yyvsp[(3) - (7)].str), ":");
         char *b1 = add_indent((yyvsp[(5) - (7)].str));
@@ -1954,7 +1949,7 @@ yyreduce:
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 235 "parser.y"
+#line 230 "parser.y"
     {
         char *hdr = concat3("while ", (yyvsp[(3) - (5)].str), ":");
         char *b = add_indent((yyvsp[(5) - (5)].str));
@@ -1966,7 +1961,7 @@ yyreduce:
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 245 "parser.y"
+#line 240 "parser.y"
     {
         char *hdr = concat3("for ", (yyvsp[(4) - (15)].str), " in range(");
         hdr = concat3(hdr, (yyvsp[(6) - (15)].str), ", ");
@@ -1980,35 +1975,35 @@ yyreduce:
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 256 "parser.y"
+#line 251 "parser.y"
     { (yyval.str) = concat3((yyvsp[(1) - (3)].str), " = ", (yyvsp[(3) - (3)].str)); free((yyvsp[(1) - (3)].str)); free((yyvsp[(3) - (3)].str)); ;}
     break;
 
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 257 "parser.y"
+#line 252 "parser.y"
     { (yyval.str) = concat2((yyvsp[(1) - (2)].str), " += 1"); free((yyvsp[(1) - (2)].str)); ;}
     break;
 
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 258 "parser.y"
+#line 253 "parser.y"
     { (yyval.str) = concat2((yyvsp[(1) - (2)].str), " -= 1"); free((yyvsp[(1) - (2)].str)); ;}
     break;
 
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 259 "parser.y"
+#line 254 "parser.y"
     { (yyval.str) = (yyvsp[(1) - (1)].str); ;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 2012 "parser.tab.c"
+#line 2007 "parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2220,11 +2215,11 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 262 "parser.y"
+#line 257 "parser.y"
 
 
 int main(void) {
-    yyout = fopen("output.py","w");
+    yyout = fopen("output.txt","w");
     if(!yyout) { printf("Cannot open output file\n"); return -1; }
 
     char fname[256];

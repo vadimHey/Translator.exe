@@ -154,12 +154,7 @@ print_stmt:
 ;
 
 expr:
-    STRINGVAL { 
-        char *content = $1;
-        $$ = concat2("\"", content);
-        $$ = concat2($$, "\"");
-        free($1);
-    }
+    STRINGVAL   { $$ = $1; }
     | NUMBER    { $$ = $1; }
     | FLOATVAL  { $$ = $1; }
     | BOOLVAL   { $$ = $1; }
@@ -262,7 +257,7 @@ expr_stmt:
 %%
 
 int main(void) {
-    yyout = fopen("output.py","w");
+    yyout = fopen("output.txt","w");
     if(!yyout) { printf("Cannot open output file\n"); return -1; }
 
     char fname[256];
