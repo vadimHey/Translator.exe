@@ -1,53 +1,29 @@
 void main() {
-    // Массив чисел
-    List<int> numbers = new List<int>();
-    numbers.add(1);
-    numbers.add(2);
-    numbers.add(3);
-    numbers.add(4);
-    numbers.add(5);
-    
-    // Вывод массива
-    print("Список элементов: ");
-    for (int i = 0; i < numbers.length; i++) {
-        print(numbers[i]);
-        print(" ");
-    }
-    println("");
-    
-    // Факториал (итеративный вместо рекурсивного)
-    int n = 5;
-    int result = 1;
-    int temp = n;
-    while (temp > 1) {
-        result = result * temp;
-        temp = temp - 1;
-    }
-    print("Факториал ");
-    print(n);
-    print(" - это ");
-    println(result);
-    
-    // Данные студентов (вместо структур - отдельные списки)
     List<string> names = new List<string>();
     List<int> ages = new List<int>();
     List<float> gpas = new List<float>();
-    
-    // Добавляем тестовых студентов
+
     names.add("Иван");
     ages.add(20);
     gpas.add(4.5);
-    
+
     names.add("Мария");
     ages.add(19);
     gpas.add(4.8);
-    
+
     names.add("Петр");
     ages.add(21);
     gpas.add(4.2);
-    
-    // Вывод студентов
-    println("Список студентов");
+
+    names.add("Анна");
+    ages.add(18);
+    gpas.add(4.9);
+
+    names.add("Олег");
+    ages.add(22);
+    gpas.add(3.8);
+
+    println("Список студентов:");
     for (int i = 0; i < names.length; i++) {
         print(names[i]);
         print(" (Возраст ");
@@ -55,19 +31,82 @@ void main() {
         print(") - средний балл: ");
         println(gpas[i]);
     }
-    
-    // Подсчет среднего балла
+
     float totalGPA = 0.0;
     for (int i = 0; i < gpas.length; i++) {
         totalGPA = totalGPA + gpas[i];
     }
-    
-    if (gpas.length > 0) {
-        print("Средний балл: ");
-        println(totalGPA / gpas.length);
-    } else {
-        println("Не введены студенты");
+
+    float averageGPA = totalGPA / gpas.length;
+    print("Средний балл по группе: ");
+    println(averageGPA);
+    println();
+
+    float maxGPA = gpas[0];
+    float minGPA = gpas[0];
+    int bestIndex = 0;
+    int worstIndex = 0;
+
+    for (int i = 1; i < gpas.length; i++) {
+        if (gpas[i] > maxGPA) {
+            maxGPA = gpas[i];
+            bestIndex = i;
+        } else if (gpas[i] < minGPA) {
+            minGPA = gpas[i];
+            worstIndex = i;
+        }
     }
-    
-    println("Программа успешно выполнена!");
+
+    println("Результаты анализа:");
+    print("Лучший студент: ");
+    print(names[bestIndex]);
+    print(" - ");
+    println(maxGPA);
+
+    print("Худший студент: ");
+    print(names[worstIndex]);
+    print(" - ");
+    println(minGPA);
+
+    if (averageGPA >= 4.5) {
+        println("Отличная группа!");
+    } else if (averageGPA >= 4.0) {
+        println("Хорошая группа.");
+    } else {
+        println("Нужно подтянуть оценки.");
+    }
+    println();
+
+    int bonusPoints = 0;
+    for (int i = 0; i < gpas.length; i++) {
+        if (gpas[i] >= 4.5 && ages[i] < 21) {
+            print("Молодой отличник найден: ");
+            print(names[i]);
+            println();
+            bonusPoints = bonusPoints + 1;
+        }
+    }
+
+    print("Количество студентов с успеваемостью >=4.5: ");
+    print(bonusPoints);
+    println();
+
+    int testA = 10;
+    int testB = 3;
+    println("Арифметические операции с 10 и 3:");
+    println(testA + testB);
+    println(testA - testB);
+    println(testA * testB);
+    println(testA / testB);
+    println(testA % testB);
+    println();
+
+    println("Обратный отсчет:");
+    int countdown = 3;
+    while (countdown >= 0) {
+        println(countdown);
+        countdown = countdown - 1;
+    }
+
+    println("Завершение работы программы");
 }

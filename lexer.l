@@ -58,8 +58,8 @@ COMMENT     \/\/[^\n]*
 "*"             { return MULTIPLY; }
 "/"             { return DIVIDE; }
 "%"             { return MOD; }
-"and"           { return AND; }
-"or"            { return OR; }
+"&&"            { return AND; }
+"||"            { return OR; }
 
 "{"             { return LBRACE; }
 "}"             { return RBRACE; }

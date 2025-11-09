@@ -37,6 +37,15 @@ char *concat3(const char *a, const char *b, const char *c) {
     return r;
 }
 
+char *concat4(const char *a, const char *b, const char *c, const char *d) {
+    char *t1 = concat2(a, b);
+    char *t2 = concat2(t1, c);
+    free(t1);
+    char *r = concat2(t2, d);
+    free(t2);
+    return r;
+}
+
 char *add_indent(const char *code) {
     if (!code) return sdup("");
     const int indent = 4;
@@ -82,6 +91,7 @@ char *add_indent(const char *code) {
 %type <str> program function_decl stmt var_decl list_decl print_stmt expr
 %type <str> if_stmt while_stmt for_stmt block expr_stmt
 %type <str> type expr_list items
+%type <str> arg_list
 
 %start program
 
@@ -159,10 +169,13 @@ expr:
     | FLOATVAL  { $$ = $1; }
     | BOOLVAL   { $$ = $1; }
     | IDENTIFIER { $$ = $1; }
+    | expr AND expr   { $$ = concat3($1, " and ", $3); free($1); free($3); }
+    | expr OR expr    { $$ = concat3($1, " or ", $3); free($1); free($3); }
     | expr PLUS expr   { $$ = concat3($1, " + ", $3); free($1); free($3); }
     | expr MINUS expr  { $$ = concat3($1, " - ", $3); free($1); free($3); }
     | expr MULTIPLY expr { $$ = concat3($1, " * ", $3); free($1); free($3); }
     | expr DIVIDE expr { $$ = concat3($1, " / ", $3); free($1); free($3); }
+    | expr MOD expr    { $$ = concat3($1, " % ", $3); free($1); free($3); }
     | expr LT expr     { $$ = concat3($1, " < ", $3); free($1); free($3); }
     | expr GT expr     { $$ = concat3($1, " > ", $3); free($1); free($3); }
     | expr LEQ expr    { $$ = concat3($1, " <= ", $3); free($1); free($3); }
@@ -198,7 +211,18 @@ expr:
         $$ = concat2($$, "]");
         free($1); free($3);
     }
+    | IDENTIFIER LPAREN arg_list RPAREN
+    {
+        $$ = concat4($1, "(", $3, ")");
+        free($1); free($3);
+    }
 ;
+
+arg_list:
+      /* пусто */      { $$ = strdup(""); }
+    | expr             { $$ = strdup($1); free($1); }
+    | arg_list COMMA expr  { $$ = concat3($1, ", ", $3); free($1); free($3); }
+    ;
 
 expr_list:
     /* empty */ { $$ = sdup(""); }
@@ -214,7 +238,16 @@ if_stmt:
         $$ = concat3(hdr, "\n", b);
         free($3); free($5); free(hdr); free(b);
     }
-    | IF LPAREN expr RPAREN block ELSE block
+  | IF LPAREN expr RPAREN block ELSE if_stmt
+    {
+        char *hdr = concat3("if ", $3, ":");
+        char *b1 = add_indent($5);
+        char *b2 = add_indent($7);
+        $$ = concat3(hdr, "\n", b1);
+        $$ = concat3($$, "else:\n", b2);
+        free($3); free($5); free($7); free(hdr); free(b1); free(b2);
+    }
+  | IF LPAREN expr RPAREN block ELSE block
     {
         char *hdr = concat3("if ", $3, ":");
         char *b1 = add_indent($5);

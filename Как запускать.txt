@@ -1,0 +1,4 @@
+bison -d parser.y
+flex lexer.l        
+gcc -o translator lex.yy.c parser.tab.c 
+./translator.exe
