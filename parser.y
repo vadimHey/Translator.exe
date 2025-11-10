@@ -74,12 +74,16 @@ char *add_indent(const char *code) {
 
 %token <str> IDENTIFIER STRINGVAL NUMBER FLOATVAL BOOLVAL
 %token INT DOUBLE FLOAT STRING BOOL VOID
-%token IF ELSE FOR WHILE RETURN PRINT PRINTLN
+%token IF ELSE FOR WHILE RETURN 
+%token PRINT PRINTLN
 %token EQUAL PLUSEQUAL MINUSEQUAL PLUSPLUS MINUSMINUS
-%token PLUS MINUS MULTIPLY DIVIDE MOD LT GT LEQ GEQ EQEQ NEQ AND OR
-%token LBRACE RBRACE LPAREN RPAREN COMMA SEMICOLON
-%token LIST NEW
+%token PLUS MINUS MULTIPLY DIVIDE MOD 
+%token LT GT LEQ GEQ EQEQ NEQ 
+%token AND OR
+%token LBRACE RBRACE LPAREN RPAREN 
+%token COMMA SEMICOLON
 %token LBRACKET RBRACKET POINT
+%token LIST NEW
 
 %left OR
 %left AND
@@ -88,9 +92,11 @@ char *add_indent(const char *code) {
 %left MULTIPLY DIVIDE MOD
 %left POINT LBRACKET
 
-%type <str> program function_decl stmt var_decl list_decl print_stmt expr
-%type <str> if_stmt while_stmt for_stmt block expr_stmt
-%type <str> type expr_list items
+%type <str> program          function_decl  stmt
+%type <str> var_decl         list_decl      print_stmt
+%type <str> expr             if_stmt        while_stmt
+%type <str> for_stmt         block          expr_stmt
+%type <str> type             expr_list      items
 %type <str> arg_list
 
 %start program

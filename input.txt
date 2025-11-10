@@ -40,7 +40,6 @@ void main() {
     float averageGPA = totalGPA / gpas.length;
     print("Средний балл по группе: ");
     println(averageGPA);
-    println();
 
     float maxGPA = gpas[0];
     float minGPA = gpas[0];
@@ -57,7 +56,7 @@ void main() {
         }
     }
 
-    println("Результаты анализа:");
+    println("\nРезультаты анализа:");
     print("Лучший студент: ");
     print(names[bestIndex]);
     print(" - ");
@@ -75,33 +74,29 @@ void main() {
     } else {
         println("Нужно подтянуть оценки.");
     }
-    println();
 
     int bonusPoints = 0;
     for (int i = 0; i < gpas.length; i++) {
         if (gpas[i] >= 4.5 && ages[i] < 21) {
-            print("Молодой отличник найден: ");
+            print("\nМолодой отличник найден: ");
             print(names[i]);
-            println();
             bonusPoints = bonusPoints + 1;
         }
     }
 
-    print("Количество студентов с успеваемостью >=4.5: ");
+    print("\nКоличество студентов с успеваемостью >=4.5: ");
     print(bonusPoints);
-    println();
 
     int testA = 10;
     int testB = 3;
-    println("Арифметические операции с 10 и 3:");
+    println("\nАрифметические операции с 10 и 3:");
     println(testA + testB);
     println(testA - testB);
     println(testA * testB);
     println(testA / testB);
     println(testA % testB);
-    println();
 
-    println("Обратный отсчет:");
+    println("\nОбратный отсчет:");
     int countdown = 3;
     while (countdown >= 0) {
         println(countdown);

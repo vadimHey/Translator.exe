@@ -81,11 +81,11 @@
      RPAREN = 297,
      COMMA = 298,
      SEMICOLON = 299,
-     LIST = 300,
-     NEW = 301,
-     LBRACKET = 302,
-     RBRACKET = 303,
-     POINT = 304
+     LBRACKET = 300,
+     RBRACKET = 301,
+     POINT = 302,
+     LIST = 303,
+     NEW = 304
    };
 #endif
 

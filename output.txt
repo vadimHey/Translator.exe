@@ -30,7 +30,6 @@ def main():
     averageGPA = totalGPA / len(gpas)
     print("Средний балл по группе: ", end='')
     print(averageGPA)
-    print()
     maxGPA = gpas[0]
     minGPA = gpas[0]
     bestIndex = 0
@@ -43,7 +42,7 @@ def main():
             if gpas[i] < minGPA:
                 minGPA = gpas[i]
                 worstIndex = i
-    print("Результаты анализа:")
+    print("\nРезультаты анализа:")
     print("Лучший студент: ", end='')
     print(names[bestIndex], end='')
     print(" - ", end='')
@@ -59,27 +58,23 @@ def main():
             print("Хорошая группа.")
         else:
             print("Нужно подтянуть оценки.")
-    print()
     bonusPoints = 0
     for i in range(0, len(gpas)):
         if gpas[i] >= 4.5 and ages[i] < 21:
-            print("Молодой отличник найден: ", end='')
+            print("\nМолодой отличник найден: ", end='')
             print(names[i], end='')
-            print()
             bonusPoints = bonusPoints + 1
-    print("Количество студентов с успеваемостью >=4.5: ", end='')
+    print("\nКоличество студентов с успеваемостью >=4.5: ", end='')
     print(bonusPoints, end='')
-    print()
     testA = 10
     testB = 3
-    print("Арифметические операции 10 и 3:")
+    print("\nАрифметические операции с 10 и 3:")
     print(testA + testB)
     print(testA - testB)
     print(testA * testB)
     print(testA / testB)
     print(testA % testB)
-    print()
-    print("Обратный отсчет:")
+    print("\nОбратный отсчет:")
     countdown = 3
     while countdown >= 0:
         print(countdown)

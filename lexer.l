@@ -18,7 +18,7 @@ COMMENT     \/\/[^\n]*
 
 %%
 
-{COMMENT}       { /* ignore comments */ }
+{COMMENT}       { /* игнорируем однострочные комментарии */ }
 
 "int"           { yylval.str = strdup("int"); return INT; }
 "double"        { yylval.str = strdup("float"); return DOUBLE; }
@@ -73,18 +73,10 @@ COMMENT     \/\/[^\n]*
 
 {DIGIT}+        { yylval.str = strdup(yytext); return NUMBER; }
 [0-9]+\.[0-9]+  { yylval.str = strdup(yytext); return FLOATVAL; }
-
 \"([^\\\"]|\\.)*\" { yylval.str = strdup(yytext); return STRINGVAL; }
-
 {ID}            { yylval.str = strdup(yytext); return IDENTIFIER; }
 
-{WS}            { /* ignore whitespace */ }
-{NEWLINE}       { /* ignore newlines */ }
-
-.               { 
-                    fprintf(stderr, "Warning: ignoring unexpected character '%c' at line %d\n", yytext[0], yylineno); 
-                }
+{WS}            { /* игнорирование пробелов, табов */ }
+{NEWLINE}       { /* игнорирование переноса строк */ }
 
 %%
-
-/* yywrap не нужен из-за %option noyywrap */
