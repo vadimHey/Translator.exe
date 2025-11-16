@@ -96,8 +96,7 @@ char *add_indent(const char *code) {
 %type <str> var_decl         list_decl      print_stmt
 %type <str> expr             if_stmt        while_stmt
 %type <str> for_stmt         block          expr_stmt
-%type <str> type             expr_list      items
-%type <str> arg_list
+%type <str> expr_list        items
 
 %start program
 
@@ -107,7 +106,7 @@ program:
     function_decl { 
         if(yyout && $1) {
             fprintf(yyout, "%s\n", $1);
-            fprintf(yyout, "\nif __name__ == \"__main__\":\n    main()\n");
+            fprintf(yyout, "\nif __name__ == \"__main__\":\n    main()");
         }
         if($1) free($1); 
     }
@@ -147,19 +146,15 @@ var_decl:
 ;
 
 list_decl:
-    LIST LT type GT IDENTIFIER EQUAL NEW LIST LT type GT LPAREN RPAREN
-    {
-        $$ = concat2($5, " = []");
-        free($5);
-    }
+    LIST LT type GT IDENTIFIER EQUAL NEW LIST LT type GT LPAREN RPAREN { $$ = concat2($5, " = []"); free($5); }
 ;
 
 type:
-    INT       { $$ = sdup(""); }
-    | DOUBLE  { $$ = sdup(""); }
-    | FLOAT   { $$ = sdup(""); }
-    | STRING  { $$ = sdup(""); }
-    | BOOL    { $$ = sdup(""); }
+    INT
+  | DOUBLE
+  | FLOAT
+  | STRING
+  | BOOL
 ;
 
 print_stmt:
@@ -217,23 +212,19 @@ expr:
         $$ = concat2($$, "]");
         free($1); free($3);
     }
-    | IDENTIFIER LPAREN arg_list RPAREN
-    {
-        $$ = concat4($1, "(", $3, ")");
-        free($1); free($3);
-    }
 ;
-
-arg_list:
-      /* пусто */      { $$ = strdup(""); }
-    | expr             { $$ = strdup($1); free($1); }
-    | arg_list COMMA expr  { $$ = concat3($1, ", ", $3); free($1); free($3); }
-    ;
 
 expr_list:
     /* empty */ { $$ = sdup(""); }
     | expr { $$ = $1; }
     | expr_list COMMA expr { $$ = concat3($1, ", ", $3); free($1); free($3); }
+;
+
+expr_stmt:
+    IDENTIFIER EQUAL expr { $$ = concat3($1, " = ", $3); free($1); free($3); }
+    | IDENTIFIER PLUSPLUS { $$ = concat2($1, " += 1"); free($1); }
+    | IDENTIFIER MINUSMINUS { $$ = concat2($1, " -= 1"); free($1); }
+    | expr { $$ = $1; }
 ;
 
 if_stmt:
@@ -244,7 +235,7 @@ if_stmt:
         $$ = concat3(hdr, "\n", b);
         free($3); free($5); free(hdr); free(b);
     }
-  | IF LPAREN expr RPAREN block ELSE if_stmt
+    | IF LPAREN expr RPAREN block ELSE if_stmt
     {
         char *hdr = concat3("if ", $3, ":");
         char *b1 = add_indent($5);
@@ -253,7 +244,7 @@ if_stmt:
         $$ = concat3($$, "else:\n", b2);
         free($3); free($5); free($7); free(hdr); free(b1); free(b2);
     }
-  | IF LPAREN expr RPAREN block ELSE block
+    | IF LPAREN expr RPAREN block ELSE block
     {
         char *hdr = concat3("if ", $3, ":");
         char *b1 = add_indent($5);
@@ -284,13 +275,6 @@ for_stmt:
         $$ = concat3(hdr, "\n", b);
         free($4); free($6); free($10); free($15); free(hdr); free(b);
     }
-;
-
-expr_stmt:
-    IDENTIFIER EQUAL expr { $$ = concat3($1, " = ", $3); free($1); free($3); }
-    | IDENTIFIER PLUSPLUS { $$ = concat2($1, " += 1"); free($1); }
-    | IDENTIFIER MINUSMINUS { $$ = concat2($1, " -= 1"); free($1); }
-    | expr { $$ = $1; }
 ;
 
 %%

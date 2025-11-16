@@ -18,14 +18,12 @@ COMMENT     \/\/[^\n]*
 
 %%
 
-{COMMENT}       { /* игнорируем однострочные комментарии */ }
-
-"int"           { yylval.str = strdup("int"); return INT; }
-"double"        { yylval.str = strdup("float"); return DOUBLE; }
-"float"         { yylval.str = strdup("float"); return FLOAT; }
-"string"        { yylval.str = strdup("str"); return STRING; }
-"bool"          { yylval.str = strdup("bool"); return BOOL; }
-"void"          { yylval.str = strdup(""); return VOID; }
+"int"           { return INT; }
+"double"        { return DOUBLE; }
+"float"         { return FLOAT; }
+"string"        { return STRING; }
+"bool"          { return BOOL; }
+"void"          { return VOID; }
 
 "if"            { return IF; }
 "else"          { return ELSE; }
@@ -72,11 +70,12 @@ COMMENT     \/\/[^\n]*
 ";"             { return SEMICOLON; }
 
 {DIGIT}+        { yylval.str = strdup(yytext); return NUMBER; }
-[0-9]+\.[0-9]+  { yylval.str = strdup(yytext); return FLOATVAL; }
+{DIGIT}+\.{DIGIT}+  { yylval.str = strdup(yytext); return FLOATVAL; }
 \"([^\\\"]|\\.)*\" { yylval.str = strdup(yytext); return STRINGVAL; }
 {ID}            { yylval.str = strdup(yytext); return IDENTIFIER; }
 
 {WS}            { /* игнорирование пробелов, табов */ }
 {NEWLINE}       { /* игнорирование переноса строк */ }
+{COMMENT}       { /* игноривание комментариев */ }
 
 %%
