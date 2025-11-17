@@ -29,7 +29,6 @@ COMMENT     \/\/[^\n]*
 "else"          { return ELSE; }
 "for"           { return FOR; }
 "while"         { return WHILE; }
-"return"        { return RETURN; }
 "print"         { return PRINT; }
 "println"       { return PRINTLN; }
 "List"          { return LIST; }
@@ -69,10 +68,10 @@ COMMENT     \/\/[^\n]*
 ","             { return COMMA; }
 ";"             { return SEMICOLON; }
 
-{DIGIT}+        { yylval.str = strdup(yytext); return NUMBER; }
+{DIGIT}+            { yylval.str = strdup(yytext); return NUMBER; }
 {DIGIT}+\.{DIGIT}+  { yylval.str = strdup(yytext); return FLOATVAL; }
-\"([^\\\"]|\\.)*\" { yylval.str = strdup(yytext); return STRINGVAL; }
-{ID}            { yylval.str = strdup(yytext); return IDENTIFIER; }
+\"([^\\\"]|\\.)*\"  { yylval.str = strdup(yytext); return STRINGVAL; }
+{ID}                { yylval.str = strdup(yytext); return IDENTIFIER; }
 
 {WS}            { /* игнорирование пробелов, табов */ }
 {NEWLINE}       { /* игнорирование переноса строк */ }

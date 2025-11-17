@@ -80,7 +80,7 @@ void main() {
         if (gpas[i] >= 4.5 && ages[i] < 21) {
             print("\nМолодой отличник найден: ");
             print(names[i]);
-            bonusPoints = bonusPoints + 1;
+            bonusPoints += 1;
         }
     }
 
@@ -100,7 +100,7 @@ void main() {
     int countdown = 3;
     while (countdown >= 0) {
         println(countdown);
-        countdown = countdown - 1;
+        countdown -= 1;
     }
 
     println("Завершение работы программы");

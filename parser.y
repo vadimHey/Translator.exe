@@ -37,15 +37,6 @@ char *concat3(const char *a, const char *b, const char *c) {
     return r;
 }
 
-char *concat4(const char *a, const char *b, const char *c, const char *d) {
-    char *t1 = concat2(a, b);
-    char *t2 = concat2(t1, c);
-    free(t1);
-    char *r = concat2(t2, d);
-    free(t2);
-    return r;
-}
-
 char *add_indent(const char *code) {
     if (!code) return sdup("");
     const int indent = 4;
@@ -74,7 +65,7 @@ char *add_indent(const char *code) {
 
 %token <str> IDENTIFIER STRINGVAL NUMBER FLOATVAL BOOLVAL
 %token INT DOUBLE FLOAT STRING BOOL VOID
-%token IF ELSE FOR WHILE RETURN 
+%token IF ELSE FOR WHILE  
 %token PRINT PRINTLN
 %token EQUAL PLUSEQUAL MINUSEQUAL PLUSPLUS MINUSMINUS
 %token PLUS MINUS MULTIPLY DIVIDE MOD 
@@ -106,7 +97,7 @@ program:
     function_decl { 
         if(yyout && $1) {
             fprintf(yyout, "%s\n", $1);
-            fprintf(yyout, "\nif __name__ == \"__main__\":\n    main()");
+            fprintf(yyout, "if __name__ == \"__main__\":\n    main()");
         }
         if($1) free($1); 
     }
@@ -128,7 +119,7 @@ block:
 
 items:
     /* empty */ { $$ = sdup(""); }
-  | items stmt { $$ = concat2($1, $2); free($1); free($2); }
+    | items stmt { $$ = concat2($1, $2); free($1); free($2); }
 ;
 
 stmt:
@@ -222,6 +213,8 @@ expr_list:
 
 expr_stmt:
     IDENTIFIER EQUAL expr { $$ = concat3($1, " = ", $3); free($1); free($3); }
+    | IDENTIFIER PLUSEQUAL expr  { $$ = concat3($1, " += ", $3); free($1); free($3); }
+    | IDENTIFIER MINUSEQUAL expr { $$ = concat3($1, " -= ", $3); free($1); free($3); }
     | IDENTIFIER PLUSPLUS { $$ = concat2($1, " += 1"); free($1); }
     | IDENTIFIER MINUSMINUS { $$ = concat2($1, " -= 1"); free($1); }
     | expr { $$ = $1; }
@@ -300,50 +293,6 @@ int main(void) {
 }
 
 int yyerror(const char *s) {
-    if (yychar == 0) {
-        fprintf(stderr, "Parse error (EOF) at line %d: %s\n", yylineno, s ? s : "");
-    } else {
-        const char *tname = "unknown";
-        switch(yychar) {
-            case IDENTIFIER: tname = "IDENTIFIER"; break;
-            case NUMBER: tname = "NUMBER"; break;
-            case STRINGVAL: tname = "STRINGVAL"; break;
-            case BOOLVAL: tname = "BOOLVAL"; break;
-            case INT: tname = "INT"; break;
-            case DOUBLE: tname = "DOUBLE"; break;
-            case FLOAT: tname = "FLOAT"; break;
-            case STRING: tname = "STRING"; break;
-            case BOOL: tname = "BOOL"; break;
-            case VOID: tname = "VOID"; break;
-            case IF: tname = "IF"; break;
-            case ELSE: tname = "ELSE"; break;
-            case FOR: tname = "FOR"; break;
-            case WHILE: tname = "WHILE"; break;
-            case RETURN: tname = "RETURN"; break;
-            case PRINT: tname = "PRINT"; break;
-            case PRINTLN: tname = "PRINTLN"; break;
-            case EQUAL: tname = "EQUAL"; break;
-            case PLUS: tname = "PLUS"; break;
-            case MINUS: tname = "MINUS"; break;
-            case MULTIPLY: tname = "MULTIPLY"; break;
-            case DIVIDE: tname = "DIVIDE"; break;
-            case LT: tname = "LT"; break;
-            case GT: tname = "GT"; break;
-            case SEMICOLON: tname = "SEMICOLON"; break;
-            case LBRACE: tname = "LBRACE"; break;
-            case RBRACE: tname = "RBRACE"; break;
-            case LPAREN: tname = "LPAREN"; break;
-            case RPAREN: tname = "RPAREN"; break;
-            case COMMA: tname = "COMMA"; break;
-            default: 
-                if (yychar > 0 && yychar < 128) {
-                    static char char_token[2] = {0};
-                    char_token[0] = (char)yychar;
-                    tname = char_token;
-                }
-        }
-        fprintf(stderr, "Parse error at line %d: %s\n  token: %s  text: \"%s\"\n",
-                yylineno, s ? s : "", tname, yytext ? yytext : "");
-    }
+    fprintf(stderr, "syntax error at line %d\n", yylineno);
     return 0;
 }

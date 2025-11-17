@@ -63,7 +63,7 @@ def main():
         if gpas[i] >= 4.5 and ages[i] < 21:
             print("\nМолодой отличник найден: ", end='')
             print(names[i], end='')
-            bonusPoints = bonusPoints + 1
+            bonusPoints += 1
     print("\nКоличество студентов с успеваемостью >=4.5: ", end='')
     print(bonusPoints, end='')
     testA = 10
@@ -78,9 +78,8 @@ def main():
     countdown = 3
     while countdown >= 0:
         print(countdown)
-        countdown = countdown - 1
+        countdown -= 1
     print("Завершение работы программы")
-
 
 if __name__ == "__main__":
     main()

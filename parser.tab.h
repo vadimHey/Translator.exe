@@ -54,38 +54,37 @@
      ELSE = 270,
      FOR = 271,
      WHILE = 272,
-     RETURN = 273,
-     PRINT = 274,
-     PRINTLN = 275,
-     EQUAL = 276,
-     PLUSEQUAL = 277,
-     MINUSEQUAL = 278,
-     PLUSPLUS = 279,
-     MINUSMINUS = 280,
-     PLUS = 281,
-     MINUS = 282,
-     MULTIPLY = 283,
-     DIVIDE = 284,
-     MOD = 285,
-     LT = 286,
-     GT = 287,
-     LEQ = 288,
-     GEQ = 289,
-     EQEQ = 290,
-     NEQ = 291,
-     AND = 292,
-     OR = 293,
-     LBRACE = 294,
-     RBRACE = 295,
-     LPAREN = 296,
-     RPAREN = 297,
-     COMMA = 298,
-     SEMICOLON = 299,
-     LBRACKET = 300,
-     RBRACKET = 301,
-     POINT = 302,
-     LIST = 303,
-     NEW = 304
+     PRINT = 273,
+     PRINTLN = 274,
+     EQUAL = 275,
+     PLUSEQUAL = 276,
+     MINUSEQUAL = 277,
+     PLUSPLUS = 278,
+     MINUSMINUS = 279,
+     PLUS = 280,
+     MINUS = 281,
+     MULTIPLY = 282,
+     DIVIDE = 283,
+     MOD = 284,
+     LT = 285,
+     GT = 286,
+     LEQ = 287,
+     GEQ = 288,
+     EQEQ = 289,
+     NEQ = 290,
+     AND = 291,
+     OR = 292,
+     LBRACE = 293,
+     RBRACE = 294,
+     LPAREN = 295,
+     RPAREN = 296,
+     COMMA = 297,
+     SEMICOLON = 298,
+     LBRACKET = 299,
+     RBRACKET = 300,
+     POINT = 301,
+     LIST = 302,
+     NEW = 303
    };
 #endif
 
@@ -96,14 +95,14 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 71 "parser.y"
+#line 62 "parser.y"
 
     char *str;
 
 
 
 /* Line 1676 of yacc.c  */
-#line 107 "parser.tab.h"
+#line 106 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
