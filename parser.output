@@ -1,0 +1,2252 @@
+����������
+
+    0 $accept: program $end
+
+    1 program: function_decl
+
+    2 function_decl: VOID IDENTIFIER LPAREN RPAREN block
+
+    3 block: LBRACE items RBRACE
+
+    4 items: /* ����� */
+    5      | items stmt
+
+    6 stmt: var_decl SEMICOLON
+    7     | list_decl SEMICOLON
+    8     | print_stmt SEMICOLON
+    9     | expr_stmt SEMICOLON
+   10     | if_stmt
+   11     | while_stmt
+   12     | for_stmt
+
+   13 var_decl: type IDENTIFIER EQUAL expr
+
+   14 list_decl: LIST LT type GT IDENTIFIER EQUAL NEW LIST LT type GT LPAREN RPAREN
+
+   15 type: INT
+   16     | DOUBLE
+   17     | FLOAT
+   18     | STRING
+   19     | BOOL
+
+   20 print_stmt: PRINTLN LPAREN expr RPAREN
+   21           | PRINT LPAREN expr RPAREN
+   22           | PRINTLN LPAREN RPAREN
+   23           | PRINT LPAREN RPAREN
+
+   24 expr: STRINGVAL
+   25     | NUMBER
+   26     | FLOATVAL
+   27     | BOOLVAL
+   28     | IDENTIFIER
+   29     | expr AND expr
+   30     | expr OR expr
+   31     | expr PLUS expr
+   32     | expr MINUS expr
+   33     | expr MULTIPLY expr
+   34     | expr DIVIDE expr
+   35     | expr MOD expr
+   36     | expr LT expr
+   37     | expr GT expr
+   38     | expr LEQ expr
+   39     | expr GEQ expr
+   40     | expr EQEQ expr
+   41     | expr NEQ expr
+   42     | LPAREN expr RPAREN
+   43     | expr POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr POINT IDENTIFIER
+   45     | expr LBRACKET expr RBRACKET
+
+   46 expr_list: /* ����� */
+   47          | expr
+   48          | expr_list COMMA expr
+
+   49 expr_stmt: IDENTIFIER EQUAL expr
+   50          | IDENTIFIER PLUSEQUAL expr
+   51          | IDENTIFIER MINUSEQUAL expr
+   52          | IDENTIFIER PLUSPLUS
+   53          | IDENTIFIER MINUSMINUS
+   54          | expr
+
+   55 if_stmt: IF LPAREN expr RPAREN block
+   56        | IF LPAREN expr RPAREN block ELSE if_stmt
+   57        | IF LPAREN expr RPAREN block ELSE block
+
+   58 while_stmt: WHILE LPAREN expr RPAREN block
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+
+������������ ������� � ���������, � ������� ��� ����������
+
+$end (0) 0
+error (256)
+IDENTIFIER (258) 2 13 14 28 43 44 49 50 51 52 53 59
+STRINGVAL (259) 24
+NUMBER (260) 25
+FLOATVAL (261) 26
+BOOLVAL (262) 27
+INT (263) 15
+DOUBLE (264) 16
+FLOAT (265) 17
+STRING (266) 18
+BOOL (267) 19
+VOID (268) 2
+IF (269) 55 56 57
+ELSE (270) 56 57
+FOR (271) 59
+WHILE (272) 58
+PRINT (273) 21 23
+PRINTLN (274) 20 22
+EQUAL (275) 13 14 49 59
+PLUSEQUAL (276) 50
+MINUSEQUAL (277) 51
+PLUSPLUS (278) 52 59
+MINUSMINUS (279) 53
+PLUS (280) 31
+MINUS (281) 32
+MULTIPLY (282) 33
+DIVIDE (283) 34
+MOD (284) 35
+LT (285) 14 36 59
+GT (286) 14 37
+LEQ (287) 38
+GEQ (288) 39
+EQEQ (289) 40
+NEQ (290) 41
+AND (291) 29
+OR (292) 30
+LBRACE (293) 3
+RBRACE (294) 3
+LPAREN (295) 2 14 20 21 22 23 42 43 55 56 57 58 59
+RPAREN (296) 2 14 20 21 22 23 42 43 55 56 57 58 59
+COMMA (297) 48
+SEMICOLON (298) 6 7 8 9 59
+LBRACKET (299) 45
+RBRACKET (300) 45
+POINT (301) 43 44
+LIST (302) 14
+NEW (303) 14
+
+
+�������������� ������� � ���������, � ������� ��� ����������
+
+$accept (49)
+    ������: 0
+program (50)
+    ������: 1, �������: 0
+function_decl (51)
+    ������: 2, �������: 1
+block (52)
+    ������: 3, �������: 2 55 56 57 58 59
+items (53)
+    ������: 4 5, �������: 3 5
+stmt (54)
+    ������: 6 7 8 9 10 11 12, �������: 5
+var_decl (55)
+    ������: 13, �������: 6
+list_decl (56)
+    ������: 14, �������: 7
+type (57)
+    ������: 15 16 17 18 19, �������: 13 14 59
+print_stmt (58)
+    ������: 20 21 22 23, �������: 8
+expr (59)
+    ������: 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42
+    43 44 45, �������: 13 20 21 29 30 31 32 33 34 35 36 37 38 39 40
+    41 42 43 44 45 47 48 49 50 51 54 55 56 57 58 59
+expr_list (60)
+    ������: 46 47 48, �������: 43 48
+expr_stmt (61)
+    ������: 49 50 51 52 53 54, �������: 9
+if_stmt (62)
+    ������: 55 56 57, �������: 10 56
+while_stmt (63)
+    ������: 58, �������: 11
+for_stmt (64)
+    ������: 59, �������: 12
+
+
+��������� 0
+
+    0 $accept: . program $end
+
+    VOID  �����, � ������� � ��������� 1
+
+    program        ������� � ��������� 2
+    function_decl  ������� � ��������� 3
+
+
+��������� 1
+
+    2 function_decl: VOID . IDENTIFIER LPAREN RPAREN block
+
+    IDENTIFIER  �����, � ������� � ��������� 4
+
+
+��������� 2
+
+    0 $accept: program . $end
+
+    $end  �����, � ������� � ��������� 5
+
+
+��������� 3
+
+    1 program: function_decl .
+
+    $default  ����� � �������������� ������� 1 (program)
+
+
+��������� 4
+
+    2 function_decl: VOID IDENTIFIER . LPAREN RPAREN block
+
+    LPAREN  �����, � ������� � ��������� 6
+
+
+��������� 5
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+��������� 6
+
+    2 function_decl: VOID IDENTIFIER LPAREN . RPAREN block
+
+    RPAREN  �����, � ������� � ��������� 7
+
+
+��������� 7
+
+    2 function_decl: VOID IDENTIFIER LPAREN RPAREN . block
+
+    LBRACE  �����, � ������� � ��������� 8
+
+    block  ������� � ��������� 9
+
+
+��������� 8
+
+    3 block: LBRACE . items RBRACE
+
+    $default  ����� � �������������� ������� 4 (items)
+
+    items  ������� � ��������� 10
+
+
+��������� 9
+
+    2 function_decl: VOID IDENTIFIER LPAREN RPAREN block .
+
+    $default  ����� � �������������� ������� 2 (function_decl)
+
+
+��������� 10
+
+    3 block: LBRACE items . RBRACE
+    5 items: items . stmt
+
+    IDENTIFIER  �����, � ������� � ��������� 11
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    INT         �����, � ������� � ��������� 16
+    DOUBLE      �����, � ������� � ��������� 17
+    FLOAT       �����, � ������� � ��������� 18
+    STRING      �����, � ������� � ��������� 19
+    BOOL        �����, � ������� � ��������� 20
+    IF          �����, � ������� � ��������� 21
+    FOR         �����, � ������� � ��������� 22
+    WHILE       �����, � ������� � ��������� 23
+    PRINT       �����, � ������� � ��������� 24
+    PRINTLN     �����, � ������� � ��������� 25
+    RBRACE      �����, � ������� � ��������� 26
+    LPAREN      �����, � ������� � ��������� 27
+    LIST        �����, � ������� � ��������� 28
+
+    stmt        ������� � ��������� 29
+    var_decl    ������� � ��������� 30
+    list_decl   ������� � ��������� 31
+    type        ������� � ��������� 32
+    print_stmt  ������� � ��������� 33
+    expr        ������� � ��������� 34
+    expr_stmt   ������� � ��������� 35
+    if_stmt     ������� � ��������� 36
+    while_stmt  ������� � ��������� 37
+    for_stmt    ������� � ��������� 38
+
+
+��������� 11
+
+   28 expr: IDENTIFIER .
+   49 expr_stmt: IDENTIFIER . EQUAL expr
+   50          | IDENTIFIER . PLUSEQUAL expr
+   51          | IDENTIFIER . MINUSEQUAL expr
+   52          | IDENTIFIER . PLUSPLUS
+   53          | IDENTIFIER . MINUSMINUS
+
+    EQUAL       �����, � ������� � ��������� 39
+    PLUSEQUAL   �����, � ������� � ��������� 40
+    MINUSEQUAL  �����, � ������� � ��������� 41
+    PLUSPLUS    �����, � ������� � ��������� 42
+    MINUSMINUS  �����, � ������� � ��������� 43
+
+    $default  ����� � �������������� ������� 28 (expr)
+
+
+��������� 12
+
+   24 expr: STRINGVAL .
+
+    $default  ����� � �������������� ������� 24 (expr)
+
+
+��������� 13
+
+   25 expr: NUMBER .
+
+    $default  ����� � �������������� ������� 25 (expr)
+
+
+��������� 14
+
+   26 expr: FLOATVAL .
+
+    $default  ����� � �������������� ������� 26 (expr)
+
+
+��������� 15
+
+   27 expr: BOOLVAL .
+
+    $default  ����� � �������������� ������� 27 (expr)
+
+
+��������� 16
+
+   15 type: INT .
+
+    $default  ����� � �������������� ������� 15 (type)
+
+
+��������� 17
+
+   16 type: DOUBLE .
+
+    $default  ����� � �������������� ������� 16 (type)
+
+
+��������� 18
+
+   17 type: FLOAT .
+
+    $default  ����� � �������������� ������� 17 (type)
+
+
+��������� 19
+
+   18 type: STRING .
+
+    $default  ����� � �������������� ������� 18 (type)
+
+
+��������� 20
+
+   19 type: BOOL .
+
+    $default  ����� � �������������� ������� 19 (type)
+
+
+��������� 21
+
+   55 if_stmt: IF . LPAREN expr RPAREN block
+   56        | IF . LPAREN expr RPAREN block ELSE if_stmt
+   57        | IF . LPAREN expr RPAREN block ELSE block
+
+    LPAREN  �����, � ������� � ��������� 44
+
+
+��������� 22
+
+   59 for_stmt: FOR . LPAREN type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+    LPAREN  �����, � ������� � ��������� 45
+
+
+��������� 23
+
+   58 while_stmt: WHILE . LPAREN expr RPAREN block
+
+    LPAREN  �����, � ������� � ��������� 46
+
+
+��������� 24
+
+   21 print_stmt: PRINT . LPAREN expr RPAREN
+   23           | PRINT . LPAREN RPAREN
+
+    LPAREN  �����, � ������� � ��������� 47
+
+
+��������� 25
+
+   20 print_stmt: PRINTLN . LPAREN expr RPAREN
+   22           | PRINTLN . LPAREN RPAREN
+
+    LPAREN  �����, � ������� � ��������� 48
+
+
+��������� 26
+
+    3 block: LBRACE items RBRACE .
+
+    $default  ����� � �������������� ������� 3 (block)
+
+
+��������� 27
+
+   42 expr: LPAREN . expr RPAREN
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 50
+
+
+��������� 28
+
+   14 list_decl: LIST . LT type GT IDENTIFIER EQUAL NEW LIST LT type GT LPAREN RPAREN
+
+    LT  �����, � ������� � ��������� 51
+
+
+��������� 29
+
+    5 items: items stmt .
+
+    $default  ����� � �������������� ������� 5 (items)
+
+
+��������� 30
+
+    6 stmt: var_decl . SEMICOLON
+
+    SEMICOLON  �����, � ������� � ��������� 52
+
+
+��������� 31
+
+    7 stmt: list_decl . SEMICOLON
+
+    SEMICOLON  �����, � ������� � ��������� 53
+
+
+��������� 32
+
+   13 var_decl: type . IDENTIFIER EQUAL expr
+
+    IDENTIFIER  �����, � ������� � ��������� 54
+
+
+��������� 33
+
+    8 stmt: print_stmt . SEMICOLON
+
+    SEMICOLON  �����, � ������� � ��������� 55
+
+
+��������� 34
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   54 expr_stmt: expr .
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 54 (expr_stmt)
+
+
+��������� 35
+
+    9 stmt: expr_stmt . SEMICOLON
+
+    SEMICOLON  �����, � ������� � ��������� 71
+
+
+��������� 36
+
+   10 stmt: if_stmt .
+
+    $default  ����� � �������������� ������� 10 (stmt)
+
+
+��������� 37
+
+   11 stmt: while_stmt .
+
+    $default  ����� � �������������� ������� 11 (stmt)
+
+
+��������� 38
+
+   12 stmt: for_stmt .
+
+    $default  ����� � �������������� ������� 12 (stmt)
+
+
+��������� 39
+
+   49 expr_stmt: IDENTIFIER EQUAL . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 72
+
+
+��������� 40
+
+   50 expr_stmt: IDENTIFIER PLUSEQUAL . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 73
+
+
+��������� 41
+
+   51 expr_stmt: IDENTIFIER MINUSEQUAL . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 74
+
+
+��������� 42
+
+   52 expr_stmt: IDENTIFIER PLUSPLUS .
+
+    $default  ����� � �������������� ������� 52 (expr_stmt)
+
+
+��������� 43
+
+   53 expr_stmt: IDENTIFIER MINUSMINUS .
+
+    $default  ����� � �������������� ������� 53 (expr_stmt)
+
+
+��������� 44
+
+   55 if_stmt: IF LPAREN . expr RPAREN block
+   56        | IF LPAREN . expr RPAREN block ELSE if_stmt
+   57        | IF LPAREN . expr RPAREN block ELSE block
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 75
+
+
+��������� 45
+
+   59 for_stmt: FOR LPAREN . type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+    INT     �����, � ������� � ��������� 16
+    DOUBLE  �����, � ������� � ��������� 17
+    FLOAT   �����, � ������� � ��������� 18
+    STRING  �����, � ������� � ��������� 19
+    BOOL    �����, � ������� � ��������� 20
+
+    type  ������� � ��������� 76
+
+
+��������� 46
+
+   58 while_stmt: WHILE LPAREN . expr RPAREN block
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 77
+
+
+��������� 47
+
+   21 print_stmt: PRINT LPAREN . expr RPAREN
+   23           | PRINT LPAREN . RPAREN
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+    RPAREN      �����, � ������� � ��������� 78
+
+    expr  ������� � ��������� 79
+
+
+��������� 48
+
+   20 print_stmt: PRINTLN LPAREN . expr RPAREN
+   22           | PRINTLN LPAREN . RPAREN
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+    RPAREN      �����, � ������� � ��������� 80
+
+    expr  ������� � ��������� 81
+
+
+��������� 49
+
+   28 expr: IDENTIFIER .
+
+    $default  ����� � �������������� ������� 28 (expr)
+
+
+��������� 50
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   42     | LPAREN expr . RPAREN
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    RPAREN    �����, � ������� � ��������� 82
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+
+��������� 51
+
+   14 list_decl: LIST LT . type GT IDENTIFIER EQUAL NEW LIST LT type GT LPAREN RPAREN
+
+    INT     �����, � ������� � ��������� 16
+    DOUBLE  �����, � ������� � ��������� 17
+    FLOAT   �����, � ������� � ��������� 18
+    STRING  �����, � ������� � ��������� 19
+    BOOL    �����, � ������� � ��������� 20
+
+    type  ������� � ��������� 83
+
+
+��������� 52
+
+    6 stmt: var_decl SEMICOLON .
+
+    $default  ����� � �������������� ������� 6 (stmt)
+
+
+��������� 53
+
+    7 stmt: list_decl SEMICOLON .
+
+    $default  ����� � �������������� ������� 7 (stmt)
+
+
+��������� 54
+
+   13 var_decl: type IDENTIFIER . EQUAL expr
+
+    EQUAL  �����, � ������� � ��������� 84
+
+
+��������� 55
+
+    8 stmt: print_stmt SEMICOLON .
+
+    $default  ����� � �������������� ������� 8 (stmt)
+
+
+��������� 56
+
+   31 expr: expr PLUS . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 85
+
+
+��������� 57
+
+   32 expr: expr MINUS . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 86
+
+
+��������� 58
+
+   33 expr: expr MULTIPLY . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 87
+
+
+��������� 59
+
+   34 expr: expr DIVIDE . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 88
+
+
+��������� 60
+
+   35 expr: expr MOD . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 89
+
+
+��������� 61
+
+   36 expr: expr LT . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 90
+
+
+��������� 62
+
+   37 expr: expr GT . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 91
+
+
+��������� 63
+
+   38 expr: expr LEQ . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 92
+
+
+��������� 64
+
+   39 expr: expr GEQ . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 93
+
+
+��������� 65
+
+   40 expr: expr EQEQ . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 94
+
+
+��������� 66
+
+   41 expr: expr NEQ . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 95
+
+
+��������� 67
+
+   29 expr: expr AND . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 96
+
+
+��������� 68
+
+   30 expr: expr OR . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 97
+
+
+��������� 69
+
+   45 expr: expr LBRACKET . expr RBRACKET
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 98
+
+
+��������� 70
+
+   43 expr: expr POINT . IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr POINT . IDENTIFIER
+
+    IDENTIFIER  �����, � ������� � ��������� 99
+
+
+��������� 71
+
+    9 stmt: expr_stmt SEMICOLON .
+
+    $default  ����� � �������������� ������� 9 (stmt)
+
+
+��������� 72
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   49 expr_stmt: IDENTIFIER EQUAL expr .
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 49 (expr_stmt)
+
+
+��������� 73
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   50 expr_stmt: IDENTIFIER PLUSEQUAL expr .
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 50 (expr_stmt)
+
+
+��������� 74
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   51 expr_stmt: IDENTIFIER MINUSEQUAL expr .
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 51 (expr_stmt)
+
+
+��������� 75
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   55 if_stmt: IF LPAREN expr . RPAREN block
+   56        | IF LPAREN expr . RPAREN block ELSE if_stmt
+   57        | IF LPAREN expr . RPAREN block ELSE block
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    RPAREN    �����, � ������� � ��������� 100
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+
+��������� 76
+
+   59 for_stmt: FOR LPAREN type . IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+    IDENTIFIER  �����, � ������� � ��������� 101
+
+
+��������� 77
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   58 while_stmt: WHILE LPAREN expr . RPAREN block
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    RPAREN    �����, � ������� � ��������� 102
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+
+��������� 78
+
+   23 print_stmt: PRINT LPAREN RPAREN .
+
+    $default  ����� � �������������� ������� 23 (print_stmt)
+
+
+��������� 79
+
+   21 print_stmt: PRINT LPAREN expr . RPAREN
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    RPAREN    �����, � ������� � ��������� 103
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+
+��������� 80
+
+   22 print_stmt: PRINTLN LPAREN RPAREN .
+
+    $default  ����� � �������������� ������� 22 (print_stmt)
+
+
+��������� 81
+
+   20 print_stmt: PRINTLN LPAREN expr . RPAREN
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    RPAREN    �����, � ������� � ��������� 104
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+
+��������� 82
+
+   42 expr: LPAREN expr RPAREN .
+
+    $default  ����� � �������������� ������� 42 (expr)
+
+
+��������� 83
+
+   14 list_decl: LIST LT type . GT IDENTIFIER EQUAL NEW LIST LT type GT LPAREN RPAREN
+
+    GT  �����, � ������� � ��������� 105
+
+
+��������� 84
+
+   13 var_decl: type IDENTIFIER EQUAL . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 106
+
+
+��������� 85
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   31     | expr PLUS expr .
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 31 (expr)
+
+
+��������� 86
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   32     | expr MINUS expr .
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 32 (expr)
+
+
+��������� 87
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   33     | expr MULTIPLY expr .
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 33 (expr)
+
+
+��������� 88
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   34     | expr DIVIDE expr .
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 34 (expr)
+
+
+��������� 89
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   35     | expr MOD expr .
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 35 (expr)
+
+
+��������� 90
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   36     | expr LT expr .
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    LT    ������ (���������������)
+    GT    ������ (���������������)
+    LEQ   ������ (���������������)
+    GEQ   ������ (���������������)
+    EQEQ  ������ (���������������)
+    NEQ   ������ (���������������)
+
+    $default  ����� � �������������� ������� 36 (expr)
+
+
+��������� 91
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   37     | expr GT expr .
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    LT    ������ (���������������)
+    GT    ������ (���������������)
+    LEQ   ������ (���������������)
+    GEQ   ������ (���������������)
+    EQEQ  ������ (���������������)
+    NEQ   ������ (���������������)
+
+    $default  ����� � �������������� ������� 37 (expr)
+
+
+��������� 92
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   38     | expr LEQ expr .
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    LT    ������ (���������������)
+    GT    ������ (���������������)
+    LEQ   ������ (���������������)
+    GEQ   ������ (���������������)
+    EQEQ  ������ (���������������)
+    NEQ   ������ (���������������)
+
+    $default  ����� � �������������� ������� 38 (expr)
+
+
+��������� 93
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   39     | expr GEQ expr .
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    LT    ������ (���������������)
+    GT    ������ (���������������)
+    LEQ   ������ (���������������)
+    GEQ   ������ (���������������)
+    EQEQ  ������ (���������������)
+    NEQ   ������ (���������������)
+
+    $default  ����� � �������������� ������� 39 (expr)
+
+
+��������� 94
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   40     | expr EQEQ expr .
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    LT    ������ (���������������)
+    GT    ������ (���������������)
+    LEQ   ������ (���������������)
+    GEQ   ������ (���������������)
+    EQEQ  ������ (���������������)
+    NEQ   ������ (���������������)
+
+    $default  ����� � �������������� ������� 40 (expr)
+
+
+��������� 95
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   41     | expr NEQ expr .
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    LT    ������ (���������������)
+    GT    ������ (���������������)
+    LEQ   ������ (���������������)
+    GEQ   ������ (���������������)
+    EQEQ  ������ (���������������)
+    NEQ   ������ (���������������)
+
+    $default  ����� � �������������� ������� 41 (expr)
+
+
+��������� 96
+
+   29 expr: expr . AND expr
+   29     | expr AND expr .
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 29 (expr)
+
+
+��������� 97
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   30     | expr OR expr .
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 30 (expr)
+
+
+��������� 98
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   45     | expr LBRACKET expr . RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    LBRACKET  �����, � ������� � ��������� 69
+    RBRACKET  �����, � ������� � ��������� 107
+    POINT     �����, � ������� � ��������� 70
+
+
+��������� 99
+
+   43 expr: expr POINT IDENTIFIER . LPAREN expr_list RPAREN
+   44     | expr POINT IDENTIFIER .
+
+    LPAREN  �����, � ������� � ��������� 108
+
+    $default  ����� � �������������� ������� 44 (expr)
+
+
+��������� 100
+
+   55 if_stmt: IF LPAREN expr RPAREN . block
+   56        | IF LPAREN expr RPAREN . block ELSE if_stmt
+   57        | IF LPAREN expr RPAREN . block ELSE block
+
+    LBRACE  �����, � ������� � ��������� 8
+
+    block  ������� � ��������� 109
+
+
+��������� 101
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER . EQUAL expr SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+    EQUAL  �����, � ������� � ��������� 110
+
+
+��������� 102
+
+   58 while_stmt: WHILE LPAREN expr RPAREN . block
+
+    LBRACE  �����, � ������� � ��������� 8
+
+    block  ������� � ��������� 111
+
+
+��������� 103
+
+   21 print_stmt: PRINT LPAREN expr RPAREN .
+
+    $default  ����� � �������������� ������� 21 (print_stmt)
+
+
+��������� 104
+
+   20 print_stmt: PRINTLN LPAREN expr RPAREN .
+
+    $default  ����� � �������������� ������� 20 (print_stmt)
+
+
+��������� 105
+
+   14 list_decl: LIST LT type GT . IDENTIFIER EQUAL NEW LIST LT type GT LPAREN RPAREN
+
+    IDENTIFIER  �����, � ������� � ��������� 112
+
+
+��������� 106
+
+   13 var_decl: type IDENTIFIER EQUAL expr .
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 13 (var_decl)
+
+
+��������� 107
+
+   45 expr: expr LBRACKET expr RBRACKET .
+
+    $default  ����� � �������������� ������� 45 (expr)
+
+
+��������� 108
+
+   43 expr: expr POINT IDENTIFIER LPAREN . expr_list RPAREN
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    $default  ����� � �������������� ������� 46 (expr_list)
+
+    expr       ������� � ��������� 113
+    expr_list  ������� � ��������� 114
+
+
+��������� 109
+
+   55 if_stmt: IF LPAREN expr RPAREN block .
+   56        | IF LPAREN expr RPAREN block . ELSE if_stmt
+   57        | IF LPAREN expr RPAREN block . ELSE block
+
+    ELSE  �����, � ������� � ��������� 115
+
+    $default  ����� � �������������� ������� 55 (if_stmt)
+
+
+��������� 110
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL . expr SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 116
+
+
+��������� 111
+
+   58 while_stmt: WHILE LPAREN expr RPAREN block .
+
+    $default  ����� � �������������� ������� 58 (while_stmt)
+
+
+��������� 112
+
+   14 list_decl: LIST LT type GT IDENTIFIER . EQUAL NEW LIST LT type GT LPAREN RPAREN
+
+    EQUAL  �����, � ������� � ��������� 117
+
+
+��������� 113
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   47 expr_list: expr .
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 47 (expr_list)
+
+
+��������� 114
+
+   43 expr: expr POINT IDENTIFIER LPAREN expr_list . RPAREN
+   48 expr_list: expr_list . COMMA expr
+
+    RPAREN  �����, � ������� � ��������� 118
+    COMMA   �����, � ������� � ��������� 119
+
+
+��������� 115
+
+   56 if_stmt: IF LPAREN expr RPAREN block ELSE . if_stmt
+   57        | IF LPAREN expr RPAREN block ELSE . block
+
+    IF      �����, � ������� � ��������� 21
+    LBRACE  �����, � ������� � ��������� 8
+
+    block    ������� � ��������� 120
+    if_stmt  ������� � ��������� 121
+
+
+��������� 116
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr . SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+    PLUS       �����, � ������� � ��������� 56
+    MINUS      �����, � ������� � ��������� 57
+    MULTIPLY   �����, � ������� � ��������� 58
+    DIVIDE     �����, � ������� � ��������� 59
+    MOD        �����, � ������� � ��������� 60
+    LT         �����, � ������� � ��������� 61
+    GT         �����, � ������� � ��������� 62
+    LEQ        �����, � ������� � ��������� 63
+    GEQ        �����, � ������� � ��������� 64
+    EQEQ       �����, � ������� � ��������� 65
+    NEQ        �����, � ������� � ��������� 66
+    AND        �����, � ������� � ��������� 67
+    OR         �����, � ������� � ��������� 68
+    SEMICOLON  �����, � ������� � ��������� 122
+    LBRACKET   �����, � ������� � ��������� 69
+    POINT      �����, � ������� � ��������� 70
+
+
+��������� 117
+
+   14 list_decl: LIST LT type GT IDENTIFIER EQUAL . NEW LIST LT type GT LPAREN RPAREN
+
+    NEW  �����, � ������� � ��������� 123
+
+
+��������� 118
+
+   43 expr: expr POINT IDENTIFIER LPAREN expr_list RPAREN .
+
+    $default  ����� � �������������� ������� 43 (expr)
+
+
+��������� 119
+
+   48 expr_list: expr_list COMMA . expr
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 124
+
+
+��������� 120
+
+   57 if_stmt: IF LPAREN expr RPAREN block ELSE block .
+
+    $default  ����� � �������������� ������� 57 (if_stmt)
+
+
+��������� 121
+
+   56 if_stmt: IF LPAREN expr RPAREN block ELSE if_stmt .
+
+    $default  ����� � �������������� ������� 56 (if_stmt)
+
+
+��������� 122
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr SEMICOLON . IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+    IDENTIFIER  �����, � ������� � ��������� 125
+
+
+��������� 123
+
+   14 list_decl: LIST LT type GT IDENTIFIER EQUAL NEW . LIST LT type GT LPAREN RPAREN
+
+    LIST  �����, � ������� � ��������� 126
+
+
+��������� 124
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   48 expr_list: expr_list COMMA expr .
+
+    PLUS      �����, � ������� � ��������� 56
+    MINUS     �����, � ������� � ��������� 57
+    MULTIPLY  �����, � ������� � ��������� 58
+    DIVIDE    �����, � ������� � ��������� 59
+    MOD       �����, � ������� � ��������� 60
+    LT        �����, � ������� � ��������� 61
+    GT        �����, � ������� � ��������� 62
+    LEQ       �����, � ������� � ��������� 63
+    GEQ       �����, � ������� � ��������� 64
+    EQEQ      �����, � ������� � ��������� 65
+    NEQ       �����, � ������� � ��������� 66
+    AND       �����, � ������� � ��������� 67
+    OR        �����, � ������� � ��������� 68
+    LBRACKET  �����, � ������� � ��������� 69
+    POINT     �����, � ������� � ��������� 70
+
+    $default  ����� � �������������� ������� 48 (expr_list)
+
+
+��������� 125
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER . LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+    LT  �����, � ������� � ��������� 127
+
+
+��������� 126
+
+   14 list_decl: LIST LT type GT IDENTIFIER EQUAL NEW LIST . LT type GT LPAREN RPAREN
+
+    LT  �����, � ������� � ��������� 128
+
+
+��������� 127
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT . expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+    IDENTIFIER  �����, � ������� � ��������� 49
+    STRINGVAL   �����, � ������� � ��������� 12
+    NUMBER      �����, � ������� � ��������� 13
+    FLOATVAL    �����, � ������� � ��������� 14
+    BOOLVAL     �����, � ������� � ��������� 15
+    LPAREN      �����, � ������� � ��������� 27
+
+    expr  ������� � ��������� 129
+
+
+��������� 128
+
+   14 list_decl: LIST LT type GT IDENTIFIER EQUAL NEW LIST LT . type GT LPAREN RPAREN
+
+    INT     �����, � ������� � ��������� 16
+    DOUBLE  �����, � ������� � ��������� 17
+    FLOAT   �����, � ������� � ��������� 18
+    STRING  �����, � ������� � ��������� 19
+    BOOL    �����, � ������� � ��������� 20
+
+    type  ������� � ��������� 130
+
+
+��������� 129
+
+   29 expr: expr . AND expr
+   30     | expr . OR expr
+   31     | expr . PLUS expr
+   32     | expr . MINUS expr
+   33     | expr . MULTIPLY expr
+   34     | expr . DIVIDE expr
+   35     | expr . MOD expr
+   36     | expr . LT expr
+   37     | expr . GT expr
+   38     | expr . LEQ expr
+   39     | expr . GEQ expr
+   40     | expr . EQEQ expr
+   41     | expr . NEQ expr
+   43     | expr . POINT IDENTIFIER LPAREN expr_list RPAREN
+   44     | expr . POINT IDENTIFIER
+   45     | expr . LBRACKET expr RBRACKET
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT expr . SEMICOLON IDENTIFIER PLUSPLUS RPAREN block
+
+    PLUS       �����, � ������� � ��������� 56
+    MINUS      �����, � ������� � ��������� 57
+    MULTIPLY   �����, � ������� � ��������� 58
+    DIVIDE     �����, � ������� � ��������� 59
+    MOD        �����, � ������� � ��������� 60
+    LT         �����, � ������� � ��������� 61
+    GT         �����, � ������� � ��������� 62
+    LEQ        �����, � ������� � ��������� 63
+    GEQ        �����, � ������� � ��������� 64
+    EQEQ       �����, � ������� � ��������� 65
+    NEQ        �����, � ������� � ��������� 66
+    AND        �����, � ������� � ��������� 67
+    OR         �����, � ������� � ��������� 68
+    SEMICOLON  �����, � ������� � ��������� 131
+    LBRACKET   �����, � ������� � ��������� 69
+    POINT      �����, � ������� � ��������� 70
+
+
+��������� 130
+
+   14 list_decl: LIST LT type GT IDENTIFIER EQUAL NEW LIST LT type . GT LPAREN RPAREN
+
+    GT  �����, � ������� � ��������� 132
+
+
+��������� 131
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT expr SEMICOLON . IDENTIFIER PLUSPLUS RPAREN block
+
+    IDENTIFIER  �����, � ������� � ��������� 133
+
+
+��������� 132
+
+   14 list_decl: LIST LT type GT IDENTIFIER EQUAL NEW LIST LT type GT . LPAREN RPAREN
+
+    LPAREN  �����, � ������� � ��������� 134
+
+
+��������� 133
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER . PLUSPLUS RPAREN block
+
+    PLUSPLUS  �����, � ������� � ��������� 135
+
+
+��������� 134
+
+   14 list_decl: LIST LT type GT IDENTIFIER EQUAL NEW LIST LT type GT LPAREN . RPAREN
+
+    RPAREN  �����, � ������� � ��������� 136
+
+
+��������� 135
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS . RPAREN block
+
+    RPAREN  �����, � ������� � ��������� 137
+
+
+��������� 136
+
+   14 list_decl: LIST LT type GT IDENTIFIER EQUAL NEW LIST LT type GT LPAREN RPAREN .
+
+    $default  ����� � �������������� ������� 14 (list_decl)
+
+
+��������� 137
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN . block
+
+    LBRACE  �����, � ������� � ��������� 8
+
+    block  ������� � ��������� 138
+
+
+��������� 138
+
+   59 for_stmt: FOR LPAREN type IDENTIFIER EQUAL expr SEMICOLON IDENTIFIER LT expr SEMICOLON IDENTIFIER PLUSPLUS RPAREN block .
+
+    $default  ����� � �������������� ������� 59 (for_stmt)

@@ -1,7 +1,0 @@
-void main() {
-    if (true) {
-        print("True case");
-    } else {
-        print("False case");
-    }
-}

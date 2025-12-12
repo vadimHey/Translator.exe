@@ -2184,7 +2184,7 @@ yyerrlab1:
 
 
   /* Shift the error token.  */
-  YY_SYMBOL_PRINT ("Shifting", yystos[yyn], yyvsp, yylsp);
+YY_SYMBOL_PRINT ("Shifting", ~[yyn], yyvsp, yylsp);
 
   yystate = yyn;
   goto yynewstate;
